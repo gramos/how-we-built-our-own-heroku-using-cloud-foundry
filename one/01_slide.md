@@ -7,13 +7,26 @@ Belarus Ruby on Rails User Group Meetup
 ![cloud foundry](cloudfoundrylogo.jpg)
 
 !SLIDE
-Who am I? 
-=========
+Who are we? 
+==========
 
-* I'm @gastonramos, gramos
+!SLIDE
+
+Gastón Ramos
+============
+
 * Using Ruby since 2006
 * I'm from Santa Fe Argentina
 * Open Source contributor: Rails, Debian, Rubinius, Cloud Foundry
+
+!SLIDE
+
+Alan Morán
+=========
+
+* Using Ruby since 2007
+* I´m from Buenos Aires, Argentina
+* Open Source contributor: billingly, Clound Foundry
 
 !SLIDE
 Disclaimer 
@@ -28,6 +41,16 @@ Disclaimer
 * V2 is under heavy development.
 
 !SLIDE
+# What is Cloud Foundry? #
+
+Is a PaaS,
+
+It is an open source project and is available through a variety 
+of private cloud distributions and public cloud instances, 
+including CloudFoundry.com.
+
+
+!SLIDE
 # What is a Paas? #
 
 * Is a category of cloud computing services.
@@ -36,21 +59,7 @@ Disclaimer
 
 * Heroku, Cloud Foundry, AWS Elastic Beanstalk, Engine Yard, Google App Engine.
 
-!SLIDE
-# Ruby does not scale #
-Have you heard this before? 
 
-## :/
-
-
-!SLIDE
-# What is Cloud Foundry? #
-
-Is a PaaS,
-
-It is an open source project and is available through a variety 
-of private cloud distributions and public cloud instances, 
-including CloudFoundry.com.
 
 !SLIDE
 # What programming languages does Cloud Foundry support? #
@@ -126,8 +135,6 @@ nats-pub foo 'Hello World!'
 
 # CC Blob Store #
 
-The Cloud Controller manages a blob store for:
-
 * **Resources** - files that are uploaded to the Cloud Controller with a unique SHA 
   
 * **App packages** - unstaged files that represent an application
@@ -135,9 +142,7 @@ The Cloud Controller manages a blob store for:
 * **Droplets** - the result of taking an app package and staging it 
                  and getting t ready to run
 	 
-The blo uses **FOG** 
-
-https://github.com/fog/fog	 
+The blog store is built with **FOG** https://github.com/fog/fog	 
 
 !SLIDE
 # CC and Nats #
@@ -147,7 +152,10 @@ https://github.com/fog/fog
  * Instructs a DEA to start or stop an application.
  
  * Receives information from the Health Manager about applications.
- 
+
+!SLIDE
+# CC and Nats #
+
  * Subscribes to Service Gateways that advertise available services
  
  * Instructs Service Gateways to handle provisioning, unprovision, 
@@ -160,6 +168,9 @@ https://github.com/fog/fog
 * Is written in Ruby and takes care of managing an application instance's lifecycle.
 
 * It can be instructed by the CC to start and stop application instances.
+
+!SLIDE
+# Droplet Execution Agent (Dea) #
 
 * It keeps track of all started instances, and periodically broadcasts messages about their state over NATS.
 
