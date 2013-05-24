@@ -1,10 +1,19 @@
 !SLIDE 
 
-How we built our own heroku using Clound Foundry 
+.notes Hello everybody, we are happy for giving this talk for the Belarus Ruby
+on rails user group, we will cover the main concepts of cloud foundry
+and how you can do to install it and start hacking on it.
+
+How we built our own heroku using Clound Foundry
 ================================================
 Belarus Ruby on Rails User Group Meetup
 
 ![cloud foundry](cloudfoundrylogo.jpg)
+
+.notes My name is Gastón Ramos, I'm from Santa Fe, Argentina
+I work in Altoros
+I've using Ruby since 2006. 
+and I've done some contributions on projects such as Rails, Debian, Rubinius and Cloud Foundry
 
 !SLIDE
 Who are we? 
@@ -17,28 +26,38 @@ Gastón Ramos
 
 * Using Ruby since 2006
 * I'm from Santa Fe Argentina
+* I Work in Altoros
 * Open Source contributor: Rails, Debian, Rubinius, Cloud Foundry
 
 !SLIDE
+
+.notes I'm Alan Morán, I've been using Ruby since 2007, I'm from Bs As Argentina
+I contribute in projects such as billingly and Cloud Foundry.
 
 Alan Morán
 =========
 
 * Using Ruby since 2007
 * I´m from Buenos Aires, Argentina
+* I Work in Altoros.
 * Open Source contributor: billingly, Clound Foundry
+
+.notes Before starting with this talk we would like do some disclaimers. We are not cloudfoundry experts. We been working on Cloud foundry for the last couple of months so our knowledge is still limited. And the last thing we would like to point is that this talk will cover Cloud foundry V2 that is still under heavy development so is under constant changing.
 
 !SLIDE
 Disclaimer 
 ==========
 
-* I'm not a Cloud Foundry expert
+* We are not Cloud Foundry experts.
 
-* 1 month working with CF.
+* ~1 month working with CF.
 
-* I'm going to talk about CF v2.
+* This talk will cover CF v2.
 
 * V2 is under heavy development.
+
+
+.notes So what`s Cloud foundry. Cloud foundry is a Pass, its an open source project and it available though a variety of pprivate cloud distribution and public cloud instances. including Cloudfoundry.com
 
 !SLIDE
 # What is Cloud Foundry? #
@@ -58,8 +77,6 @@ including CloudFoundry.com.
 * Facilitate the deployment of applications. 
 
 * Heroku, Cloud Foundry, AWS Elastic Beanstalk, Engine Yard, Google App Engine.
-
-
 
 !SLIDE
 # What programming languages does Cloud Foundry support? #
@@ -97,12 +114,15 @@ Cloud Foundry providers: AppFog, cloudfoundry.com, pass.io
 * Self healing.
 * Horizontally scalable.
 
+
 !SLIDE
-# Cloud Foundry Core Components #
 
-Cloud Controller - Dea - Health Manager - Router - Warden - Services - Uaa
+.notes  We will attend only to the main components of cf, which are 
+the router, the cloud_controller, Dea and Nats.
 
-(image and very short description)
+# CF Core Components #
+
+![cf-architecture](cf_architecture.png)
 
 !SLIDE
 # Nats #
@@ -118,31 +138,29 @@ nats-pub foo 'Hello World!'
 
 !SLIDE
 
-# Cloud Controller # 
-
-* Written in Ruby awesome!
+# Cloud Controller  
 
 * REST API endpoints for clients 
 
-* Maintains a database with tables for orgs, spaces, apps, 
-   services, service instances, user roles, and more.
+* Written in Ruby, awesome!
+
+* Maintains a database with tables for user information, like
+  organizations, spaces, etc.
 
 * CC
 
-**cf** <--- http ---> **Cloud Controller** <-- Nats --> **CF components**
+.notes 
 
 !SLIDE
+# Cloud Controller  
 
-# CC Blob Store #
+* Interacts with CF via http
 
-* **Resources** - files that are uploaded to the Cloud Controller with a unique SHA 
-  
-* **App packages** - unstaged files that represent an application
-   
-* **Droplets** - the result of taking an app package and staging it 
-                 and getting t ready to run
-	 
-The blog store is built with **FOG** https://github.com/fog/fog	 
+   *Cf is the client used to manage user apps*
+
+* Interacts with Dea and Health Manager via nats
+
+**cf** <--- http ---> **Cloud Controller** <-- Nats --> **CF components**
 
 !SLIDE
 # CC and Nats #
@@ -161,7 +179,17 @@ The blog store is built with **FOG** https://github.com/fog/fog
  * Instructs Service Gateways to handle provisioning, unprovision, 
    bind and unbind operations for services
 
+!SLIDE
 
+# CC Blob Store #
+
+* **Resources** - files that are uploaded to the Cloud Controller with a unique SHA 
+  
+* **App packages** - unstaged files that represent an application
+   
+* **Droplets** - the result of taking an app package and staging it 
+                 and getting t ready to run
+	 
 !SLIDE
 # Droplet Execution Agent (Dea) #
 
@@ -175,6 +203,9 @@ The blog store is built with **FOG** https://github.com/fog/fog
 * It keeps track of all started instances, and periodically broadcasts messages about their state over NATS.
 
 * DEA depends on **Warden** to run application instances.
+
+!SLIDE
+![app_push](app_push_flow_diagram.png)
 
 !SLIDE
 # CLI for Cloud Foundry #
@@ -254,3 +285,10 @@ CF Vagrant install born
 
 * Lot of hacking, research and reverse engineering.
 
+!SLIDE
+Resources:
+==========
+
+http://docs.cloudfoundry.com
+http://www.slideshare.net/ramnivas2/cloudfoundry-architecture
+http://blog.appfog.com/why-cloudfoundry-matters-to-hackers/
